@@ -16,31 +16,19 @@ class Table extends Component {
     }
 
     renderTableData() {
-        if(this.props.dataIntl){
+        if(this.props.dataStates){
             return this.rows.map((row, index) => {
-                const { SrNo, State, AffectedForeignNationals } = row 
-                
-                return (
-                    <tr key={SrNo}>
-                        <td>{SrNo}</td>
-                        <td>{State}</td>
-                        <td>{AffectedForeignNationals}</td>
-                    </tr>
-                )
-            })
-        }
-        else if(this.props.dataStates){
-            return this.rows.map((row, index) => {
-                const { SrNo, State, AffectedIndianNationals } = row 
+                const { SrNo, State, Cases, Helpline } = row 
                 //console.log(student.SrNo);
                 return (
                     <tr key={SrNo}>
                         <td>{SrNo}</td>
                         <td>{State}</td>
-                        <td>{AffectedIndianNationals}</td>
+                        <td>{Cases}</td>
+                        <td>{Helpline}</td>
                     </tr>
-                )
-            })
+                );
+            });
         }
         else if(this.props.data){
             return this.rows.map((row, index) => {
@@ -59,17 +47,10 @@ class Table extends Component {
 
    render() { 
       let row = [];
-      if(this.props.dataIntl){
-        this.props.dataIntl.map((item, key) => {
-            //console.log(item);
-            return row.push({SrNo: key+1, State: item.item.state, AffectedForeignNationals: item.item.intCases});
-        });
-        this.rows = row;
-      }
-      else if(this.props.dataStates){
+      if(this.props.dataStates){
         this.props.dataStates.map((item, key) => {
             //console.log(item);
-            return row.push({SrNo: key+1, State: item.item.state, AffectedIndianNationals: item.item.localCases});
+            return row.push({SrNo: key+1, State: item.state, Cases: item.cases, Helpline: item.helpline});
         });
         this.rows = row;
       }
@@ -95,4 +76,4 @@ class Table extends Component {
    }
 }
 
-export default Table
+export default Table;
