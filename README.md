@@ -1,3 +1,7 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7be70d33-e5b3-4802-9030-ef2f25fad76e/deploy-status)](https://app.netlify.com/sites/covid-india-visualize/deploys)
+
+This project is live here: https://covid-india-visualize.netlify.com/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
