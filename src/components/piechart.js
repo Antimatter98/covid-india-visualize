@@ -19,15 +19,11 @@ class App extends React.Component {
     if(this.props.dtStates){
       this.props.dtStates.map(item => {
         //console.log(this.props.dtTotal[0].localTotal);
-        return data.push({x: item.item.state, y: ((item.item.localCases/this.props.dtTotal[0].localTotal)*100.0).toFixed(2), text:'intTotal', fill: '#00226C'})
-        //data.push({x: 'localTotal', y: (item.localTotal/item.total)*100.0, text:'localTotal', fill: '#0450C2'})
-      });
-    }
-    else if(this.props.dtStatesIntl){
-      this.props.dtStatesIntl.map(item => {
-        //console.log(this.props.dtTotal[0].localTotal);
-        return data.push({x: item.item.state, y: ((item.item.intCases/this.props.dtTotal[0].intTotal)*100.0).toFixed(2), text:'intTotal', fill: '#00226C'})
-        //data.push({x: 'localTotal', y: (item.localTotal/item.total)*100.0, text:'localTotal', fill: '#0450C2'})
+        //console.log(item.cases);
+        if(item.cases > 0){
+          return data.push({x: item.state, y: ((item.cases/this.props.dtTotal[0].total)*100.0).toFixed(2), text:'intTotal', fill: '#00226C'})
+        }
+        return null;//data.push({x: 'localTotal', y: (item.localTotal/item.total)*100.0, text:'localTotal', fill: '#0450C2'})
       });
     }
     else if(this.props.dtTotal){
@@ -47,13 +43,6 @@ class App extends React.Component {
       <AccumulationSeriesDirective dataSource={data} dataLabel={datalabel} xName='x' yName='y' type='Pie'/>
     </AccumulationSeriesCollectionDirective>
   </AccumulationChartComponent>
-
-    {/* <AccumulationChartComponent id='charts' title='COVID india' enableSmartLabels={true} enableAnimation={false} center={{x: '50%', y: '50%'}} tooltip={{ enable: true, format: '${point.x} : <b>${point.y}%</b>' }}>
-    <Inject services={[AccumulationLegend, PieSeries, AccumulationTooltip, AccumulationDataLabel]} />
-    <AccumulationSeriesCollectionDirective>
-      <AccumulationSeriesDirective dataSource={dataLocal} dataLabel={datalabel} xName='x' yName='y' type='Pie'/>
-    </AccumulationSeriesCollectionDirective>
-  </AccumulationChartComponent> */}
    </div>
   );
   }

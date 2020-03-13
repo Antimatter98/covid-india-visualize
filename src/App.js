@@ -22,16 +22,21 @@ class App extends Component{
       //this.data = res;
       let states=[];
       let total = [];
-      res.map(item => {
-        if(item.state){
-          return states.push({item});
+      //console.log(res.stateData);
+      for (var key in res.stateData) {
+        var tmp = {state: key};
+        for (var key1 in res.stateData[key]) {
+          //console.log(key, key1, res.stateData[key][key1]);
+          tmp[key1] = res.stateData[key][key1];
         }
-        else{
-          return total.push(item);
-        }
-      });
-      this.setState({dataLoad: true, data: res, states: states, total: total});
-      //console.log(this.state);
+        //console.log(tmp);
+        states.push(tmp);
+      }
+      //console.log(states);
+
+      total.push(res.countryData)
+      //console.log(total);
+      this.setState({dataLoad: true, data: [], states: states, total: total});
     })
     .catch(err => {
       console.log(err);
@@ -51,16 +56,14 @@ class App extends Component{
                 <PieChart
                   {...props}
                   dtTotal= {this.state.total}
-                  title='COVID India Confirmed Cases'
+                  title='COVID India Total Confirmed Cases'
                   // dtStates={this.state.states}
                 />
                 </div>
                 <div align="center">
                   <br/>
-                <a href="/">StateWise confirmed cases(Indian Nationals)</a>
+                <a href="/">Check data for state-wise confirmed cases here...</a>
                  <br/>
-                  <a href="/statesIntl">StateWise confirmed cases(Foreign Nationals)</a>
-                <br/>
                 </div>
                 
               
@@ -86,15 +89,13 @@ class App extends Component{
                   {...props}
                   dtTotal= {this.state.total}
                   dtStates={this.state.states}
-                  title='COVID India Confirmed Cases (Indian National)'
+                  title='COVID India Confirmed Cases (State-wise data)'
                 />
                 </div>
                 <div align="center">
                   <br/>
-                <a href="/total">Total confirmed cases</a>
+                <a href="/total">Check data for total confirmed cases in India here...</a>
                  <br/>
-                  <a href="/statesIntl">StateWise confirmed cases(Foreign Nationals)</a>
-                <br/>
                 </div>
                 <div>
                 <TableData
@@ -103,38 +104,6 @@ class App extends Component{
                 />
               </div>
 
-              </div>
-
-            : <p align="center">Loading...</p>
-          )}
-        />
-        <Route
-          path="/statesIntl"
-          exact
-          render={props => (
-            this.state.dataLoad
-            ? <div>
-                <div>
-                <PieChart
-                  {...props}
-                  dtTotal= {this.state.total}
-                  dtStatesIntl={this.state.states}
-                  title='COVID India Confirmed Cases (Foreign National)'
-                />
-                </div>
-                <div align="center">
-                  <br/>
-                <a href="/statesLocal">StateWise confirmed cases(Indian Nationals)</a>
-                 <br/>
-                  <a href="/total">Total confirmed cases</a>
-                <br/>
-                </div>
-                <div>
-                <TableData
-                  {...props}
-                  dataIntl={this.state.states}
-                />
-              </div>
               </div>
 
             : <p align="center">Loading...</p>
