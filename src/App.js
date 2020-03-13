@@ -93,6 +93,9 @@ class App extends Component{
                 />
                 </div>
                 <div align="center">
+                  <h3>Total cases : {this.state.total[0].total}</h3>
+                </div>
+                <div align="center">
                   <br/>
                 <a href="/total">Check data for total confirmed cases in India here...</a>
                  <br/>
