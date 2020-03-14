@@ -37,6 +37,7 @@ class App extends Component{
       total.push(res.countryData)
       //console.log(total);
       this.setState({dataLoad: true, data: [], states: states, total: total});
+      //console.log(this.state.total[0].total);
     })
     .catch(err => {
       console.log(err);
@@ -93,7 +94,9 @@ class App extends Component{
                 />
                 </div>
                 <div align="center">
-                  <h3>Total cases : {this.state.total[0].total}</h3>
+                  <h3>Total confirmed cases : {this.state.total[0].total}</h3>
+                  <h3>Total cured/discharged cases : {this.state.total[0].cured_dischargedTotal}</h3>
+                  <h3>Total death cases : {this.state.total[0].deathsTotal}</h3>
                 </div>
                 <div align="center">
                   <br/>
