@@ -3,7 +3,6 @@ from '@syncfusion/ej2-react-charts';
 import * as React from 'react';
 
 class App extends React.Component {
-  
   render() {
     // let dataTotal = []
     // let dataLocal = []
@@ -37,10 +36,10 @@ class App extends React.Component {
     //console.log(data);
     return (
     <div>
-    <AccumulationChartComponent id='charts' title={this.props.title} enableSmartLabels={true} enableAnimation={true} center={{x: '50%', y: '50%'}} tooltip={{ enable: true}}>
+    <AccumulationChartComponent id='charts' title={this.props.title} legendSettings={{visible: true, toggleVisibility: false}}enableSmartLabels={true} enableAnimation={false} center={{x: '50%', y: '50%'}} tooltip={{ enable: true}}>
     <Inject services={[AccumulationLegend, PieSeries, AccumulationTooltip, AccumulationDataLabel]} />
     <AccumulationSeriesCollectionDirective>
-      <AccumulationSeriesDirective dataSource={data} dataLabel={datalabel} xName='x' yName='y' type='Pie'/>
+      <AccumulationSeriesDirective dataSource={data} dataLabel={datalabel} xName='x' yName='y' type='Pie' explode={true} explodeOffset='10%'/>
     </AccumulationSeriesCollectionDirective>
   </AccumulationChartComponent>
    </div>
