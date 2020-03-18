@@ -13,7 +13,7 @@ export default class Example extends PureComponent {
         //console.log(item.date);
         return newData.push({Date: item.date, TotalCases: item.total, TotalDeaths: item.deaths, TotalDischarged: item.discharged});
 	});
-	console.log(newData);
+	//console.log(newData);
 	var winWidth = 600;
 	if((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) <= 600){
 		winWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
