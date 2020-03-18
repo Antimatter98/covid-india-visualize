@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import '../App.css'
 
 class Table extends Component {
    constructor(props) {
@@ -68,8 +69,8 @@ class Table extends Component {
 
       
       return (
-        <div align="center">
-        <table id='data'>
+        <div align="center" className="table-responsive">
+        <table id='data' className="table-striped table-bordered">
            <tbody>
             <tr>{this.renderTableHeader()}</tr>
               {this.renderTableData()}
