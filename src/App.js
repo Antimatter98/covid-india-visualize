@@ -61,10 +61,10 @@ class App extends Component{
             }
             sum.push(tmp);
           }
-          console.log(sum);
+          //console.log(sum);
           this.setState({dataLoad: true, data: [], states: states, total: total, daily: sum});
           //this.setState({daily: sum});
-          console.log(this.state);
+          //console.log(this.state);
         })
         .catch(err => {
           console.log(err);
