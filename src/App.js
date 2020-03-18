@@ -3,13 +3,15 @@ import {Route, Switch, Redirect} from 'react-router-dom';
 import './App.css';
 import PieChart from './components/piechart';
 import TableData from './components/table';
+import LineChart from './components/linechart';
 
 class App extends Component{
   state = {
     dataLoad: false,
     data: [],
     states: [],
-    total: []
+    total: [],
+    daily: []
   };
 
   componentDidMount(){
@@ -36,12 +38,43 @@ class App extends Component{
 
       total.push(res.countryData)
       //console.log(total);
-      this.setState({dataLoad: true, data: [], states: states, total: total});
+      fetch('https://api.rootnet.in/covid19-in/stats/daily')
+        .then(result => {
+          return result.json();
+        })
+        .then(res => {
+          let sum = [];
+          for(var i=0; i<res.data.length; i++){
+            var tmp = {}
+            for(var key in res.data[i]){
+              //console.log(key)
+              if (key === 'day'){
+                tmp = {date: res.data[i][key]};
+                //console.log(res.data[i][key])
+              }
+              if(key === 'summary'){
+                for(var key1 in res.data[i][key]){
+                  //console.log(res.data[i][key])
+                  tmp[key1] = res.data[i][key][key1];
+                }
+              }
+            }
+            sum.push(tmp);
+          }
+          console.log(sum);
+          this.setState({dataLoad: true, data: [], states: states, total: total, daily: sum});
+          //this.setState({daily: sum});
+          console.log(this.state);
+        })
+        .catch(err => {
+          console.log(err);
+        });
       //console.log(this.state.total[0].total);
     })
     .catch(err => {
       console.log(err);
     });
+    
   }
 
   render(){
@@ -52,15 +85,18 @@ class App extends Component{
           exact
           render={props => (
             this.state.dataLoad
-            ? <div>
+            ? <div align="center">
                 <div>
-                <PieChart
-                  {...props}
-                  dtTotal= {this.state.total}
-                  title='COVID India Total Confirmed Cases'
-                  // dtStates={this.state.states}
-                />
+                  <h2>Data for COVID-19 in India</h2>
+                  <br/>
                 </div>
+                <div>
+                  <LineChart
+                    {...props}
+                    data={this.state.daily}
+                  />
+                </div>
+
                 <div align="center">
                   <br/>
                 <a href="/">Check data for state-wise confirmed cases here...</a>
@@ -74,6 +110,7 @@ class App extends Component{
                   data={this.state.total}
                 />
               </div>
+              
               
               </div>
             : <p align="center">Loading...</p>
@@ -108,8 +145,7 @@ class App extends Component{
                   {...props}
                   dataStates={this.state.states}
                 />
-              </div>
-
+                </div>
               </div>
 
             : <p align="center">Loading...</p>

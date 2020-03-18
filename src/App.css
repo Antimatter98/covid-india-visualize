@@ -52,7 +52,7 @@ table {
 
 td {
   border-bottom: 1px solid #ddd;
-  font-weight: 420;
+  font-weight: 350;
   padding: 0 5px;
   width: 100px;
 }
@@ -67,6 +67,15 @@ th {
 tr {
   width: 100px;
   font-size: 14px;
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 200px;
+  overflow: auto;
+}
+.table-wrapper-scroll-y {
+  display: block;
 }
 
 button {
