@@ -25,7 +25,7 @@ class App extends Component{
       let states=[];
       let total = [];
       //console.log(res.stateData);
-      console.log(res.data.regional);
+      //console.log(res.data.regional);
 
       res.data.regional.map(key => {
         return states.push({state: key.loc, cases: (key.confirmedCasesIndian + key.confirmedCasesForeign), cured_discharged: key.discharged, deaths: key.deaths});
@@ -40,7 +40,7 @@ class App extends Component{
       //   //console.log(tmp);
       //   states.push(tmp);
       // }
-      console.log(states);
+      //console.log(states);
 
       total.push(res.data.summary)
       //console.log(total);
@@ -67,10 +67,10 @@ class App extends Component{
             }
             sum.push(tmp);
           }
-          console.log(sum);
+          //console.log(sum);
           this.setState({dataLoad: true, data: [], states: states, total: total, daily: sum});
           //this.setState({daily: sum});
-          console.log(this.state);
+          //console.log(this.state);
         })
         .catch(err => {
           console.log(err);
@@ -137,9 +137,9 @@ class App extends Component{
                 />
                 </div>
                 <div align="center">
-                  <h3>Total confirmed cases : {this.state.total[0].total}</h3>
-                  <h3>Total cured cases : {this.state.total[0].discharged}</h3>
-                  <h3>Total death cases : {this.state.total[0].deaths}</h3>
+                  <h4>Total confirmed cases : {this.state.total[0].total}</h4>
+                  <h4>Total cured cases : {this.state.total[0].discharged}</h4>
+                  <h4>Total death cases : {this.state.total[0].deaths}</h4>
                 </div>
                 <div align="center">
                   <br/>
