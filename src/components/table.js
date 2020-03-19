@@ -19,7 +19,7 @@ class Table extends Component {
     renderTableData() {
         if(this.props.dataStates){
             return this.rows.map((row, index) => {
-                const { SrNo, State, Cases, Cured, Deaths, Helpline } = row;
+                const { SrNo, State, Cases, Cured, Deaths} = row;
                 //console.log(student.SrNo);
                 return (
                     <tr key={SrNo}>
@@ -28,7 +28,6 @@ class Table extends Component {
                         <td>{Cases}</td>
                         <td>{Cured}</td>
                         <td>{Deaths}</td>
-                        <td>{Helpline}</td>
                     </tr>
                 );
             });
@@ -55,13 +54,13 @@ class Table extends Component {
       if(this.props.dataStates){
         this.props.dataStates.map((item, key) => {
             //console.log(item);
-            return row.push({SrNo: key+1, State: item.state, Cases: item.cases, Cured: item.cured_discharged, Deaths: item.deaths, Helpline: item.helpline});
+            return row.push({SrNo: key+1, State: item.state, Cases: item.cases, Cured: item.cured_discharged, Deaths: item.deaths});
         });
         this.rows = row;
       }
       else if(this.props.data){
         this.props.data.map((item, key) => {
-            return row.push({TotalIndianNationals: item.localTotal, TotalForeignNationals: item.intTotal, TotalCured: item.cured_dischargedTotal, TotalDeaths: item.deathsTotal, Total: (item.total)});
+            return row.push({TotalIndianNationals: item.confirmedCasesIndian, TotalForeignNationals: item.confirmedCasesForeign, TotalCured: item.discharged, TotalDeaths: item.deaths, Total: (item.total)});
         });
         this.rows = row;
       }

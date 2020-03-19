@@ -27,8 +27,8 @@ class App extends React.Component {
     }
     else if(this.props.dtTotal){
       this.props.dtTotal.map(item => {
-        data.push({x: 'Total Confirmed cases ( Foreign National )', y: ((item.intTotal/item.total)*100).toFixed(2), text:'intTotal', fill: '#00226C'})
-        data.push({x: 'Total Confirmed cases (Indian National)', y: ((item.localTotal/item.total)*100).toFixed(2), text:'localTotal', fill: '#0450C2'})
+        data.push({x: 'Total Confirmed cases ( Foreign National )', y: ((item.confirmedCasesForeign/item.total)*100).toFixed(2), text:'intTotal', fill: '#00226C'})
+        data.push({x: 'Total Confirmed cases (Indian National)', y: ((item.confirmedCasesIndian/item.total)*100).toFixed(2), text:'localTotal', fill: '#0450C2'})
         return null;
       });
     }
