@@ -113,7 +113,7 @@ class App extends Component{
               
               
               </div>
-            : <p align="center">Loading...</p>
+            : <p align="center">Some endpoints are down right now</p>
           )}
         />
         <Route
@@ -148,7 +148,7 @@ class App extends Component{
                 </div>
               </div>
 
-            : <p align="center">Loading...</p>
+            : <p align="center">Some endpoints are down right now</p>
           )}
         />
         <Redirect to="/"/>
