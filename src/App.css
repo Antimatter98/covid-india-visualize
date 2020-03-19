@@ -94,6 +94,6 @@ button:hover {
   bottom: 0;
   flex-shrink: 0;
   text-align: center;
-  background-color: rgb(104, 104, 104);
+  background-color: rgb(0, 0, 0);
   color: white;
 }
