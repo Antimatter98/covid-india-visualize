@@ -5,6 +5,12 @@ import PieChart from './components/piechart';
 import TableData from './components/table';
 import LineChart from './components/linechart';
 
+const Footer = () => (
+  <footer className="footer">
+    <p>Made by Nishant Tilve <br/> <a href="https://twitter.com/niche_nt">@niche_nt</a></p>
+  </footer>
+);
+
 class App extends Component{
   state = {
     dataLoad: false,
@@ -117,7 +123,7 @@ class App extends Component{
                 />
               </div>
               
-              
+              <Footer/>
               </div>
             : <p align="center">Loading...</p>
           )}
@@ -137,9 +143,9 @@ class App extends Component{
                 />
                 </div>
                 <div align="center">
-                  <h4>Total confirmed cases : {this.state.total[0].total}</h4>
-                  <h4>Total cured cases : {this.state.total[0].discharged}</h4>
-                  <h4>Total death cases : {this.state.total[0].deaths}</h4>
+                  <b>Total confirmed cases : {this.state.total[0].total}</b><br/>
+                  <b>Total cured cases : {this.state.total[0].discharged}</b><br/>
+                  <b>Total death cases : {this.state.total[0].deaths}</b><br/>
                 </div>
                 <div align="center">
                   <br/>
@@ -152,8 +158,8 @@ class App extends Component{
                   dataStates={this.state.states}
                 />
                 </div>
+                <Footer/>
               </div>
-
             : <p align="center">Loading...</p>
           )}
         />
