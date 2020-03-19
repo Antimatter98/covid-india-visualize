@@ -15,7 +15,7 @@ class App extends Component{
   };
 
   componentDidMount(){
-    fetch('https://exec.clay.run/kunksed/mohfw-covid')
+    fetch('https://api.rootnet.in/covid19-in/stats/latest')
     .then(result => {
       return result.json();
     })
@@ -25,18 +25,24 @@ class App extends Component{
       let states=[];
       let total = [];
       //console.log(res.stateData);
-      for (var key in res.stateData) {
-        var tmp = {state: key};
-        for (var key1 in res.stateData[key]) {
-          //console.log(key, key1, res.stateData[key][key1]);
-          tmp[key1] = res.stateData[key][key1];
-        }
-        //console.log(tmp);
-        states.push(tmp);
-      }
-      //console.log(states);
+      console.log(res.data.regional);
 
-      total.push(res.countryData)
+      res.data.regional.map(key => {
+        return states.push({state: key.loc, cases: (key.confirmedCasesIndian + key.confirmedCasesForeign), cured_discharged: key.discharged, deaths: key.deaths});
+      })
+
+      // for (var key in res.data.regional) {
+      //   var tmp = {state: key.loc, cases: (key.confirmedCasesIndian + key.confirmedCasesForeign), cured_discharged: key.discharged, deaths: key.deaths};
+      //   // for (var key1 in res.stateData[key]) {
+      //   //   //console.log(key, key1, res.stateData[key][key1]);
+      //   //   tmp[key1] = res.stateData[key][key1];
+      //   // }
+      //   //console.log(tmp);
+      //   states.push(tmp);
+      // }
+      console.log(states);
+
+      total.push(res.data.summary)
       //console.log(total);
       fetch('https://api.rootnet.in/covid19-in/stats/daily')
         .then(result => {
@@ -61,10 +67,10 @@ class App extends Component{
             }
             sum.push(tmp);
           }
-          //console.log(sum);
+          console.log(sum);
           this.setState({dataLoad: true, data: [], states: states, total: total, daily: sum});
           //this.setState({daily: sum});
-          //console.log(this.state);
+          console.log(this.state);
         })
         .catch(err => {
           console.log(err);
@@ -113,7 +119,7 @@ class App extends Component{
               
               
               </div>
-            : <p align="center">Some endpoints are down right now</p>
+            : <p align="center">Loading...</p>
           )}
         />
         <Route
@@ -132,8 +138,8 @@ class App extends Component{
                 </div>
                 <div align="center">
                   <h3>Total confirmed cases : {this.state.total[0].total}</h3>
-                  <h3>Total cured/discharged cases : {this.state.total[0].cured_dischargedTotal}</h3>
-                  <h3>Total death cases : {this.state.total[0].deathsTotal}</h3>
+                  <h3>Total cured cases : {this.state.total[0].discharged}</h3>
+                  <h3>Total death cases : {this.state.total[0].deaths}</h3>
                 </div>
                 <div align="center">
                   <br/>
@@ -148,7 +154,7 @@ class App extends Component{
                 </div>
               </div>
 
-            : <p align="center">Some endpoints are down right now</p>
+            : <p align="center">Loading...</p>
           )}
         />
         <Redirect to="/"/>
