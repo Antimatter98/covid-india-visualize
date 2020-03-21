@@ -74,6 +74,12 @@ class App extends Component{
             sum.push(tmp);
           }
           //console.log(sum);
+
+          //sorting satae-wise data here:
+          states = states.sort(function(a, b){
+            return b.cases - a.cases;
+          });
+
           this.setState({dataLoad: true, data: [], states: states, total: total, daily: sum});
           //this.setState({daily: sum});
           //console.log(this.state);
