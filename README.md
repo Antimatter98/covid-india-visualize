@@ -2,6 +2,8 @@
 
 This project is live here: https://covid-india-visualize.netlify.com/
 
+API endpoint used for data: https://github.com/amodm/api-covid19-in
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
