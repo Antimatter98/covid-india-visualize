@@ -4,6 +4,7 @@ import './App.css';
 import PieChart from './components/piechart';
 import TableData from './components/table';
 import LineChart from './components/linechart';
+import LineChartTesting from './components/linechartTestings';
 
 const Footer = () => (
   <footer className="footer">
@@ -17,45 +18,52 @@ class App extends Component{
     data: [],
     states: [],
     total: [],
-    daily: []
+    daily: [],
+    tests: []
   };
 
   componentDidMount(){
+    let states=[];
+    let total = [];
+    let sum = [];
+    let newData = [];
     fetch('https://api.rootnet.in/covid19-in/stats/latest')
-    .then(result => {
-      return result.json();
-    })
-    .then((res) => {
-      //console.log(res);
-      //this.data = res;
-      let states=[];
-      let total = [];
-      //console.log(res.stateData);
-      //console.log(res.data.regional);
-
-      res.data.regional.map(key => {
-        return states.push({state: key.loc, cases: (key.confirmedCasesIndian + key.confirmedCasesForeign), cured_discharged: key.discharged, deaths: key.deaths});
+      .then(result => {
+        return result.json();
       })
+      .then((res) => {
+        //console.log(res);
+        //this.data = res;
+        
+        //console.log(res.stateData);
+        //console.log(res.data.regional);
 
-      // for (var key in res.data.regional) {
-      //   var tmp = {state: key.loc, cases: (key.confirmedCasesIndian + key.confirmedCasesForeign), cured_discharged: key.discharged, deaths: key.deaths};
-      //   // for (var key1 in res.stateData[key]) {
-      //   //   //console.log(key, key1, res.stateData[key][key1]);
-      //   //   tmp[key1] = res.stateData[key][key1];
-      //   // }
-      //   //console.log(tmp);
-      //   states.push(tmp);
-      // }
-      //console.log(states);
+        res.data.regional.map(key => {
+          return states.push({state: key.loc, cases: (key.confirmedCasesIndian + key.confirmedCasesForeign), cured_discharged: key.discharged, deaths: key.deaths});
+        })
 
-      total.push(res.data.summary)
-      //console.log(total);
-      fetch('https://api.rootnet.in/covid19-in/stats/daily')
+        // for (var key in res.data.regional) {
+        //   var tmp = {state: key.loc, cases: (key.confirmedCasesIndian + key.confirmedCasesForeign), cured_discharged: key.discharged, deaths: key.deaths};
+        //   // for (var key1 in res.stateData[key]) {
+        //   //   //console.log(key, key1, res.stateData[key][key1]);
+        //   //   tmp[key1] = res.stateData[key][key1];
+        //   // }
+        //   //console.log(tmp);
+        //   states.push(tmp);
+        // }
+        //console.log(states);
+
+        total.push(res.data.summary)
+        //console.log(total);
+        
+        //console.log(this.state.total[0].total);
+
+        fetch('https://api.rootnet.in/covid19-in/stats/daily')
         .then(result => {
           return result.json();
         })
         .then(res => {
-          let sum = [];
+          
           for(var i=0; i<res.data.length; i++){
             var tmp = {}
             for(var key in res.data[i]){
@@ -79,20 +87,34 @@ class App extends Component{
           states = states.sort(function(a, b){
             return b.cases - a.cases;
           });
-
-          this.setState({dataLoad: true, data: [], states: states, total: total, daily: sum});
+          
+          
+          fetch('https://api.rootnet.in/covid19-in/stats/testing/history')
+          .then(result =>{
+              return result.json();
+          })
+          .then(res => {
+          
+            //loading = true;
+              //console.log(res);
+              res.data.map(item => {
+                return newData.push({Date: item.day, TotalSamplesTested: item.totalSamplesTested, TotalPeopleTested: item.totalIndividualsTested, TotalPositiveCases: item.totalPositiveCases});
+              });
+              console.log(newData);
+              //this.loading = false;
+              this.setState({dataLoad: true, data: [], states: states, total: total, daily: sum, tests: newData});
+          })
+          .catch(err => console.log(err));
           //this.setState({daily: sum});
           //console.log(this.state);
         })
         .catch(err => {
           console.log(err);
         });
-      //console.log(this.state.total[0].total);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-    
+      })
+      .catch(err => {
+        console.log(err);
+      }); 
   }
 
   render(){
@@ -105,7 +127,7 @@ class App extends Component{
             this.state.dataLoad
             ? <div align="center">
                 <div>
-                  <h2>Data for COVID-19 in India</h2>
+                  <h5>Data for COVID-19 in India</h5>
                   <br/>
                 </div>
                 <div>
@@ -119,6 +141,7 @@ class App extends Component{
                   <br/>
                 <a href="/">Check data for state-wise confirmed cases here...</a>
                  <br/>
+                  <a href="/tests">Check data COVID-19 tests conducted in India here...</a>
                 </div>
                 
               
@@ -129,6 +152,37 @@ class App extends Component{
                 />
               </div>
               
+              <Footer/>
+              </div>
+            : <p align="center">Loading...</p>
+          )}
+        />
+        <Route
+          path="/tests"
+          exact
+          render={props => (
+            this.state.dataLoad
+            ? <div align="center">
+                <div>
+                  <h5>COVID-19 tests in India</h5>
+                  <br/>
+                </div>
+                <div>
+                  <LineChartTesting
+                  {...props}
+                  data={this.state.tests}
+                  />
+                </div>
+
+                <div align="center">
+                  <br/>
+                <a href="/">Check data for state-wise confirmed cases here...</a>
+                <br/>
+                <a href="/total">Check data for total confirmed cases in India here...</a>
+                 <br/>
+                 <br/>
+                </div>
+                
               <Footer/>
               </div>
             : <p align="center">Loading...</p>
@@ -157,6 +211,7 @@ class App extends Component{
                   <br/>
                 <a href="/total">Check data for total confirmed cases in India here...</a>
                  <br/>
+                  <a href="/tests">Check data COVID-19 tests conducted in India here...</a>
                 </div>
                 <div>
                 <TableData
