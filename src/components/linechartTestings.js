@@ -5,9 +5,12 @@ import {
 
 export default class Example extends PureComponent {
   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/2vyv694u/';
+    
 
+    
   render() {
 
+    //console.log(this.props.data);
     function getDate(a){
       //let a = "3/26/2020";
       let trimmed = a.split("-");
@@ -65,22 +68,23 @@ export default class Example extends PureComponent {
       //console.log(dateNew);
       return dateNew;
     }
-
-	var newData = []
+	var newData = [];
 	this.props.data.map(item => {
         //console.log(this.props.dtTotal[0].localTotal);
         //console.log(item.date);
-        return newData.push({Date: getDate(item.date), TotalCases: item.total, TotalDeaths: item.deaths, TotalDischarged: item.discharged});
+        return newData.push({Date: getDate(item.Date), TotalSamplesTested: item.TotalSamplesTested, TotalPeopleTested: item.TotalPeopleTested, TotalPositiveCases: item.TotalPositiveCases});
 	});
-	//console.log(newData);
+  console.log(newData);
+  //var data = this.values();
 	var winWidth = 600;
 	if((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) <= 600){
 		winWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 	}
-	  
+    console.log(newData);
+    
     return (
       <div align="center">
-        <h6>Total confirmed cases</h6>
+        <h6>Total samples tested*</h6>
         <AreaChart
           width={winWidth}
           height={200}
@@ -94,10 +98,10 @@ export default class Example extends PureComponent {
           <XAxis dataKey="Date" />
           <YAxis />
           <Tooltip />
-          <Area type="monotone" dataKey="TotalCases" stroke="#ff8000" fill="#ffb263" />
+          <Area type="monotone" dataKey="TotalSamplesTested" stroke="#0362fc" fill="#639fff" />
         </AreaChart>
 		<br/>
-        <h6>Total discharged cases</h6>
+        <h6>Total individuals tested*</h6>
         <AreaChart
           width={winWidth}
           height={200}
@@ -111,10 +115,10 @@ export default class Example extends PureComponent {
           <XAxis dataKey="Date" />
           <YAxis />
           <Tooltip />
-          <Area type="monotone" dataKey="TotalDischarged" stroke="#05ff71" fill="#82ca9d" />
+          <Area type="monotone" dataKey="TotalPeopleTested" stroke="#7b00ff" fill="#c28aff" />
         </AreaChart>
 		<br/>
-		<h6>Total death cases</h6>
+		<h6>Total positive cases*</h6>
         <AreaChart
           width={winWidth}
           height={200}
@@ -128,8 +132,10 @@ export default class Example extends PureComponent {
           <XAxis dataKey="Date" />
           <YAxis />
           <Tooltip />
-          <Area type="monotone" dataKey="TotalDeaths" stroke="#ff0505" fill="#ff6969" />
+          <Area type="monotone" dataKey="TotalPositiveCases" stroke="#ff0505" fill="#ff6969" />
         </AreaChart>
+        <br/>
+        <p><font size="2">* Data might not be updated on a daily basis</font></p>
       </div>
     );
   }
