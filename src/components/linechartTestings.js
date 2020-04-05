@@ -101,7 +101,7 @@ export default class Example extends PureComponent {
           <Area type="monotone" dataKey="TotalSamplesTested" stroke="#0362fc" fill="#639fff" />
         </AreaChart>
 		<br/>
-        <h6>Total individuals tested*</h6>
+        {/* <h6>Total individuals tested*</h6>
         <AreaChart
           width={winWidth}
           height={200}
@@ -116,7 +116,7 @@ export default class Example extends PureComponent {
           <YAxis />
           <Tooltip />
           <Area type="monotone" dataKey="TotalPeopleTested" stroke="#7b00ff" fill="#c28aff" />
-        </AreaChart>
+        </AreaChart> */}
 		<br/>
 		<h6>Total positive cases*</h6>
         <AreaChart
