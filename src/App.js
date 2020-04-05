@@ -125,7 +125,8 @@ class App extends Component{
           exact
           render={props => (
             this.state.dataLoad
-            ? <div align="center">
+            ? <div>
+              <div align="center" class="page-wrap">
                 <div>
                   <h5>Data for COVID-19 in India</h5>
                   <br/>
@@ -151,7 +152,7 @@ class App extends Component{
                   data={this.state.total}
                 />
               </div>
-              
+              </div>
               <Footer/>
               </div>
             : <p align="center">Loading...</p>
@@ -162,7 +163,8 @@ class App extends Component{
           exact
           render={props => (
             this.state.dataLoad
-            ? <div align="center">
+            ? <div>
+              <div align="center" class="page-wrap">
                 <div>
                   <h5>COVID-19 tests in India</h5>
                   <br/>
@@ -182,7 +184,7 @@ class App extends Component{
                  <br/>
                  <br/>
                 </div>
-                
+                </div>
               <Footer/>
               </div>
             : <p align="center">Loading...</p>
@@ -194,6 +196,7 @@ class App extends Component{
           render={props => (
             this.state.dataLoad
             ? <div>
+              <div align="center" class="page-wrap">
                 <div>
                 <PieChart
                   {...props}
@@ -218,6 +221,7 @@ class App extends Component{
                   {...props}
                   dataStates={this.state.states}
                 />
+                </div>
                 </div>
                 <Footer/>
               </div>

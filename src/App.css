@@ -36,6 +36,9 @@
     transform: rotate(360deg);
   }
 }
+html, body {
+  height: 100%;
+}
 
 .comp {
   width: 100%;
@@ -87,9 +90,22 @@ button:hover {
   color: rgb(255, 123, 123);
 }
 
-.footer {
-  width: 100%;
+.page-wrap{
+  min-height: 100vh;
+  margin-bottom: -70px;
+}
+
+.page-wrap::after {
+  content: "";
+  display: block;
+}
+
+.footer, .page-wrap::after{
   height: 70px;
+}
+
+.footer {
+  width: 100%; 
   left: 0;
   bottom: 0;
   flex-shrink: 0;
