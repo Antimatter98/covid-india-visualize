@@ -98,7 +98,12 @@ class App extends Component{
             //loading = true;
               //console.log(res);
               res.data.map(item => {
-                return newData.push({Date: item.day, TotalSamplesTested: item.totalSamplesTested, TotalPeopleTested: item.totalIndividualsTested, TotalPositiveCases: item.totalPositiveCases});
+                if((item.totalSamplesTested !== null) && (item.totalPositiveCases !== null)){
+                  return newData.push({Date: item.day, TotalSamplesTested: item.totalSamplesTested, TotalPeopleTested: item.totalIndividualsTested, TotalPositiveCases: item.totalPositiveCases});
+                }
+                else{
+                  return null;
+                }
               });
               console.log(newData);
               //this.loading = false;
